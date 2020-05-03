@@ -1,32 +1,27 @@
+
 #ifndef _KFBOT_KFMOUSE_
 #define _KFBOT_KFMOUSE_
 
 #include <Arduino.h>
-#include <SoftwareSerial.h>
+#include "GeneralMouse.h"
 
-class KFMouse {
+class KFMouse: public GeneralMouse {
     private:
-        SoftwareSerial bTserial = SoftwareSerial(2, 3);
-        bool isPressing = false;
-        byte nowXc = 0;
-        byte nowYc = 0;
-        void generalAction(byte x, byte y, bool pressing);
-
+        /* data */
     public:
-        KFMouse();
+        KFMouse(/* args */);
         ~KFMouse();
-        void moveByXYSteps(int x, int y);
-        void moveByXYOneStep(byte x, byte y);
-        void moveToXYSteps(int x, int y);
-        void click();
-        void doubleClick();
-        void press();
-        void release();
-        void returnToO();
 
         void clickSyutsuGeki();    // 出撃
-        void attack_1();
+        void attack(byte i);
+        void swipeToSupportPage();
+        void selectOrb(byte i);
+        void selectCancel();
+        void selectOK();
+        void selectOrbChar(byte i);
+        void combatAgain();
 };
+
 
 
 #endif

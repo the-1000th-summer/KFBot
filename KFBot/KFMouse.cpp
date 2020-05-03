@@ -1,87 +1,10 @@
 #include "KFMouse.h"
 
-// 此类的构造函数，创建实例时光标会移回原点。
+// 此类的构造函数
 KFMouse::KFMouse() {
-    Serial.println("Led CREATED.");
-    bTserial.begin(9600);
-    // delay(200);             // 不可在构造函数中delay()
-    
-    returnToO();
 }
-// 此类的析构函数，结束实例生命周期时打印提示信息。
+// 此类的析构函数
 KFMouse::~KFMouse() {
-    Serial.println("Led DELETED.");
-}
-
-// 此方法将光标移动若干个单位距离（步数）
-// Args:
-//     xSteps (int): x方向上移动的步数
-//     ySteps (int): y方向上移动的步数
-void KFMouse::moveByXYSteps(int xSteps, int ySteps) {
-    byte stepLength = 10;
-    byte xpm = xSteps < 0 ? -1 : 1;           // x plus or minus
-    byte ypm = ySteps < 0 ? -1 : 1;           // y plus or minus
-    
-    for (int xStep = 0; xStep < abs(xSteps); xStep++) {
-        moveByXYOneStep(stepLength * xpm, 0);
-        delay(20);
-    }
-    for (int yStep = 0; yStep < abs(ySteps); yStep++) {
-        moveByXYOneStep(0, stepLength * ypm);
-        delay(20);
-    }
-    nowXc += xSteps;
-    nowYc += ySteps;
-
-    Serial.println("move completed.");
-}
-
-// 此方法约定为移动一个单位距离的光标
-// 最少有一个参数为0
-// Args:
-//     x (byte): x方向上移动的“距离”，此工程默认为10。
-//     y (byte): y方向上移动的“距离”，此工程默认为10。
-void KFMouse::moveByXYOneStep(byte x, byte y) {
-    generalAction(x, y, isPressing);
-}
-
-// 此方法将光标移动到坐标为 (x, y) 的位置。
-// Args:
-//     xc (int): (x coordinates) x方向的坐标
-//     yc (int): (y coordinates) y方向的坐标
-void KFMouse::moveToXYSteps(int xc, int yc) {
-    moveByXYSteps(xc-nowXc, yc-nowYc);
-}
-
-// 此方法执行鼠标点击左键的操作。
-void KFMouse::click() {
-    generalAction(0, 0, true);
-    delay(50);
-    generalAction(0, 0, false);
-}
-// 此方法执行鼠标左键双击操作。
-void KFMouse::doubleClick() {
-    click();
-    delay(200);
-    click();
-}
-
-// 此方法按下鼠标左键并且不放开。
-void KFMouse::press() {
-    generalAction(0, 0, true);
-}
-
-// 此方法释放左键。
-void KFMouse::release() {
-    generalAction(0, 0, false);
-}
-
-// 此方法使光标返回原点。
-void KFMouse::returnToO() {
-    for (byte i = 0; i < 5; i++) {
-        generalAction(-100, -100, false);
-    }
-    nowXc = nowYc = 0;
 }
 
 // 此方法点击“出撃”按钮。
@@ -89,22 +12,90 @@ void KFMouse::clickSyutsuGeki() {
     moveToXYSteps(75, 42);
     click();
 }
-// 此方法点击战斗界面中左起第一个技能按钮
-void KFMouse::attack_1() {
-    moveToXYSteps(37, 40);
+// 此方法点击战斗界面中技能按钮。
+// Args:
+//     i (byte): 左起第i个技能按钮
+void KFMouse::attack(byte i) {
+    switch (i) {
+    case 1:
+        moveToXYSteps(37, 40);
+        break;
+    case 2:
+        moveToXYSteps(46, 40);
+        break;
+    case 3:
+        moveToXYSteps(54, 40);
+        break;
+    case 4:
+        moveToXYSteps(63, 40);
+        break;
+    
+    default:
+        return;
+    }
     doubleClick();
 }
-// 此方法执行一般的鼠标操作。
-void KFMouse::generalAction(byte x, byte y, bool pressing) {
-    byte byte5 = pressing ? 0x01 : (byte)0x00;
-    bTserial.write(0x08);          //BYTE1
-    bTserial.write((byte)0x00);    //BYTE2
-    bTserial.write(0xA1);          //BYTE3
-    bTserial.write(0x02);          //BYTE4
-    bTserial.write(byte5);    //BYTE5, Button (1, 2, 3)
-    bTserial.write(x);             //BYTE6, X-Axis (-127~127)
-    bTserial.write(y);             //BYTE7, Y-Axis (-127~127)
-    bTserial.write((byte)0);       //BYTE8, Wheel
+// 此方法执行右滑并进入琪拉拉宝珠使用页面
+void KFMouse::swipeToSupportPage() {
+    moveToXYSteps(74, 40);
+    press();
+    moveToXYSteps(82, 40);
+    release();
+}
 
-    isPressing = pressing;
+// 此方法选择一个琪拉拉宝珠技能。
+// Args:
+//     i (byte): 从上往下数第i个技能
+void KFMouse::selectOrb(byte i) {
+    switch (i) {
+    case 1:
+        moveToXYSteps(45, 20);
+        break;
+    case 2:
+        moveToXYSteps(45, 30);
+        break;
+    case 3:
+        moveToXYSteps(45, 40);
+        break;
+    default:
+        break;
+    }
+    click();
+}
+
+// 此方法点击弹出警告框的左边的按钮（一般为取消按钮）。
+void KFMouse::selectCancel() {
+    moveToXYSteps(35, 30);
+    click();
+}
+
+// 此方法点击弹出警告框的右边的按钮（一般为确认按钮）。
+void KFMouse::selectOK() {
+    moveToXYSteps(50, 30);
+    click();
+}
+
+// 此方法点击使琪拉拉宝珠技能作用于某角色上
+// Args:
+//     i (byte): 从左往右数第i个角色
+void KFMouse::selectOrbChar(byte i) {
+    switch (i) {
+    case 1:
+        moveToXYSteps(32, 23);
+        break;
+    case 2:
+        moveToXYSteps(42, 23);
+        break;
+    case 3:
+        moveToXYSteps(52, 23);
+        break;
+    default:
+        break;
+    }
+    click();
+}
+
+void KFMouse::combatAgain() {
+    moveToXYSteps(30, 43);
+    click();
 }

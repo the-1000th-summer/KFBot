@@ -1,6 +1,5 @@
 #include "KFMouse.h"
 
-
 KFMouse myMouse = KFMouse();
 
 void setup() {
@@ -37,8 +36,44 @@ void loop() {
                 Serial.println("return to origin!");
                 myMouse.returnToO();
                 break;
+            case 'r':
+                myMouse.clickSyutsuGeki();
+                break;
             case 't':
-                myMouse.attack_1();
+                myMouse.attack(1);
+                break;
+            case 'y':
+                myMouse.attack(2);
+                break;
+            case 'u':
+                myMouse.attack(3);
+                break;
+            case 'i':
+                myMouse.attack(4);
+                break;
+            case 'g':
+                myMouse.swipeToSupportPage();
+                break;
+            case 'h':
+                myMouse.selectOrb(3);
+                break;
+            case 'j':
+                myMouse.selectCancel();
+                break;
+            case 'k':
+                myMouse.selectOK();
+                break;
+            case 'b':
+                myMouse.selectOrbChar(1);
+                break;
+            case 'n':
+                myMouse.selectOrbChar(2);
+                break;
+            case 'm':
+                myMouse.selectOrbChar(3);
+                break;
+            case 'p':
+                myMouse.combatAgain();
                 break;
             default:
                 break;
