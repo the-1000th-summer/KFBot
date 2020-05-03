@@ -4,7 +4,7 @@
 KFMouse::KFMouse() {
     Serial.println("Led CREATED.");
     bTserial.begin(9600);
-    delay(200);
+    // delay(200);             // 不可在构造函数中delay()
     
     returnToO();
 }
@@ -13,7 +13,10 @@ KFMouse::~KFMouse() {
     Serial.println("Led DELETED.");
 }
 
-// 此方法移动
+// 此方法将光标移动若干个单位距离（步数）
+// Args:
+//     xSteps (int): x方向上移动的步数
+//     ySteps (int): y方向上移动的步数
 void KFMouse::moveByXYSteps(int xSteps, int ySteps) {
     byte stepLength = 10;
     byte xpm = xSteps < 0 ? -1 : 1;           // x plus or minus
@@ -27,6 +30,8 @@ void KFMouse::moveByXYSteps(int xSteps, int ySteps) {
         moveByXYOneStep(0, stepLength * ypm);
         delay(20);
     }
+    nowXc += xSteps;
+    nowYc += ySteps;
 
     Serial.println("move completed.");
 }
@@ -40,14 +45,25 @@ void KFMouse::moveByXYOneStep(byte x, byte y) {
     generalAction(x, y, isPressing);
 }
 
-void KFMouse::moveToXYSteps(int x, int y) {
-
+// 此方法将光标移动到坐标为 (x, y) 的位置。
+// Args:
+//     xc (int): (x coordinates) x方向的坐标
+//     yc (int): (y coordinates) y方向的坐标
+void KFMouse::moveToXYSteps(int xc, int yc) {
+    moveByXYSteps(xc-nowXc, yc-nowYc);
 }
 
 // 此方法执行鼠标点击左键的操作。
 void KFMouse::click() {
     generalAction(0, 0, true);
+    delay(50);
     generalAction(0, 0, false);
+}
+// 此方法执行鼠标左键双击操作。
+void KFMouse::doubleClick() {
+    click();
+    delay(200);
+    click();
 }
 
 // 此方法按下鼠标左键并且不放开。
@@ -65,22 +81,18 @@ void KFMouse::returnToO() {
     for (byte i = 0; i < 5; i++) {
         generalAction(-100, -100, false);
     }
-    nowX = nowY = 0;
+    nowXc = nowYc = 0;
 }
 
 // 此方法点击“出撃”按钮。
 void KFMouse::clickSyutsuGeki() {
-    returnToO();
-    moveByXYSteps(75, 42);
+    moveToXYSteps(75, 42);
     click();
 }
-// 
+// 此方法点击战斗界面中左起第一个技能按钮
 void KFMouse::attack_1() {
-    returnToO();
-    moveByXYSteps(37, 40);
-    click();
-    delay(200);
-    click();
+    moveToXYSteps(37, 40);
+    doubleClick();
 }
 // 此方法执行一般的鼠标操作。
 void KFMouse::generalAction(byte x, byte y, bool pressing) {

@@ -8,10 +8,10 @@ class KFMouse {
     private:
         SoftwareSerial bTserial = SoftwareSerial(2, 3);
         bool isPressing = false;
-        byte nowX = 0;
-        byte nowY = 0;
+        byte nowXc = 0;
+        byte nowYc = 0;
         void generalAction(byte x, byte y, bool pressing);
-        // void moveBy
+
     public:
         KFMouse();
         ~KFMouse();
@@ -19,9 +19,11 @@ class KFMouse {
         void moveByXYOneStep(byte x, byte y);
         void moveToXYSteps(int x, int y);
         void click();
+        void doubleClick();
         void press();
         void release();
         void returnToO();
+
         void clickSyutsuGeki();    // 出撃
         void attack_1();
 };

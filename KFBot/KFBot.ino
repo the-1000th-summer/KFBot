@@ -1,15 +1,14 @@
 #include "KFMouse.h"
 
-// SoftwareSerial bTserial = SoftwareSerial(2, 3);
+
 KFMouse myMouse = KFMouse();
 
 void setup() {
     Serial.begin(9600);
-    // bTserial.begin(9600);
+
     delay(200);
     Serial.println("start!  ");
     
-    // printByteData(-2);
 }
 
 void loop() {
