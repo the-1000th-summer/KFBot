@@ -63,6 +63,19 @@ void KFMouse::selectOrb(byte i) {
     click();
 }
 
+void KFMouse::selectMySupport(byte i) {
+    switch (i) {
+    case 1:
+        moveToXYSteps(75, 15);
+        break;
+    case 2:
+        moveToXYSteps(75, 35);
+    default:
+        return;
+    }
+    click();
+}
+
 // 此方法点击弹出警告框的左边的按钮（一般为取消按钮）。
 void KFMouse::selectCancel() {
     moveToXYSteps(35, 30);

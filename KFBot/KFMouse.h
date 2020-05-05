@@ -9,13 +9,14 @@ class KFMouse: public GeneralMouse {
     private:
         /* data */
     public:
-        KFMouse(/* args */);
+        KFMouse();
         ~KFMouse();
 
         void clickSyutsuGeki();    // 出撃
         void attack(byte i);
         void swipeToSupportPage();
         void selectOrb(byte i);
+        void selectMySupport(byte i);
         void selectCancel();
         void selectOK();
         void selectOrbChar(byte i);

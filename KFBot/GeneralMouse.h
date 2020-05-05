@@ -11,12 +11,11 @@ class GeneralMouse {
         byte nowXc = 0;
         byte nowYc = 0;
         void generalAction(byte x, byte y, bool pressing);
-
+        void moveByXYOneStep(byte x, byte y);
     public:
         GeneralMouse();
         ~GeneralMouse();
         void moveByXYSteps(int x, int y);
-        void moveByXYOneStep(byte x, byte y);
         void moveToXYSteps(int x, int y);
         void click();
         void doubleClick();
