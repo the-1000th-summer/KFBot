@@ -1,12 +1,12 @@
-#ifndef _KFBOT_GENERALMOUSE_
-#define _KFBOT_GENERALMOUSE_
+#ifndef _KFBOT_GENERALMOUSE_H_
+#define _KFBOT_GENERALMOUSE_H_
 
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 
 class GeneralMouse {
     private:
-        SoftwareSerial bTserial = SoftwareSerial(2, 3);
+        SoftwareSerial bTserial = SoftwareSerial(8, 9);
         bool isPressing = false;
         byte nowXc = 0;
         byte nowYc = 0;

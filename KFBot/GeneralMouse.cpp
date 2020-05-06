@@ -2,7 +2,7 @@
 
 // 此类的构造函数，创建实例时光标会移回原点。
 GeneralMouse::GeneralMouse() {
-    Serial.println("Led CREATED.");
+    Serial.println("mouse CREATED.");
     bTserial.begin(9600);
     // delay(200);             // 不可在构造函数中delay()
     
@@ -10,7 +10,7 @@ GeneralMouse::GeneralMouse() {
 }
 // 此类的析构函数，结束实例生命周期时打印提示信息。
 GeneralMouse::~GeneralMouse() {
-    Serial.println("Led DELETED.");
+    Serial.println("mouse DELETED.");
 }
 
 // 此方法将光标移动若干个单位距离（步数）

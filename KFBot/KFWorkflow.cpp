@@ -8,6 +8,7 @@ KFWorkflow::KFWorkflow() {
 KFWorkflow::~KFWorkflow() {
 }
 
+// 此方法用于完成任务「黄金平原」。
 void KFWorkflow::getGold() {
     clickSyutsuGeki();
     selectOK();
