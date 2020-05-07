@@ -1,7 +1,8 @@
 #include "KFWorkflow.h"
 
-// 此类的构造函数
-KFWorkflow::KFWorkflow() {
+
+// 此类的构造函数，无默认构造函数
+KFWorkflow::KFWorkflow(LiquidCrystal lcddd) : KFMouse(lcddd) {
 }
 
 // 此类的析构函数

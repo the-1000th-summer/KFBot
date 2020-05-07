@@ -40,10 +40,11 @@ void CtrlLCD::bootTest() {
     delay(500);
 }
 
-void CtrlLCD::tryA() {
-    KFWorkflow myWorkflow = KFWorkflow();
+// 此方法用于读取按钮的输入以控制进行哪个workflow
+void CtrlLCD::controlWorkflow() {
+    KFWorkflow myWorkflow = KFWorkflow(lcd);
 
-    String strs[2] = {"hello", "world"};
+    String strs[2] = {"foo", "bar"};
 
     byte hlNum = 0;
     char sNStr[1];      // serial number

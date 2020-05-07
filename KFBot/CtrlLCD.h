@@ -13,7 +13,7 @@ public:
     CtrlLCD();
     ~CtrlLCD();
     void bootTest();
-    void tryA();
+    void controlWorkflow();
 };
 
 

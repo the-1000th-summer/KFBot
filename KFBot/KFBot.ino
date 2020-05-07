@@ -14,7 +14,7 @@ void setup() {
 }
 
 void loop() {
-    myLCD.tryA();
+    myLCD.controlWorkflow();
 
     // if (Serial.available() > 0) {
     //     while (Serial.available() > 0 ) {

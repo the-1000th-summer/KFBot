@@ -6,9 +6,9 @@
 
 class KFWorkflow: public KFMouse {
 private:
-    /* data */
+    /**/
 public:
-    KFWorkflow();
+    KFWorkflow(LiquidCrystal lcddd);
     ~KFWorkflow();
     
     void getGold();
