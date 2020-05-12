@@ -44,7 +44,7 @@ void CtrlLCD::bootTest() {
 void CtrlLCD::controlWorkflow() {
     KFWorkflow myWorkflow = KFWorkflow(lcd);
 
-    String strs[2] = {"foo", "bar"};
+    String strs[2] = {"getGold", "bar"};
 
     byte hlNum = 0;
     char sNStr[1];      // serial number
@@ -110,6 +110,9 @@ void CtrlLCD::controlWorkflow() {
                     switch (hlNum) {
                     case 0:
                         myWorkflow.getGold();
+                        break;
+                    case 1:
+                        myWorkflow.event();
                         break;
                     default:
                         break;

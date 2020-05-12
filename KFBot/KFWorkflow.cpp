@@ -52,3 +52,34 @@ void KFWorkflow::getGold() {
     }
 }
 
+void KFWorkflow::event() {
+    clickSyutsuGeki();
+    selectOK();
+    delay(10000);
+    while (true) {
+        attack(1);
+        delay(7000);
+        attack(3);
+        delay(7000);
+
+        swipeToSupportPage();
+        delay(1000);
+        selectOrb(3);
+        delay(500);
+        selectOK();
+        delay(1000);
+        selectOrbChar(2);
+        delay(3000);
+        attack(1);
+        delay(15000);
+        click();
+        delay(5000);
+        click();
+        delay(1000);
+        click();
+        delay(1000);
+        combatAgain();
+        delay(10000);
+    }
+}
+

@@ -12,6 +12,7 @@ public:
     ~KFWorkflow();
     
     void getGold();
+    void event();
 };
 
 
