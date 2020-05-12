@@ -17,14 +17,19 @@ class KFMouse: public GeneralMouse {
 
         void write2ndRow(String rowStr);
         void clickSyutsuGeki();    // 出撃
-        void attack(byte i);
+        void attack(byte skill_i);
         void swipeToSupportPage();
-        void selectOrb(byte i);
-        void selectMySupport(byte i);
+        void selectOrb(byte orb_i);
+        void selectMySupport(byte spter_i);
         void selectCancel();
         void selectOK();
-        void selectOrbChar(byte i);
+        void selectOrbChar(byte orbChar_i);
         void combatAgain();
+
+        void attackAndWait(byte skill_i, byte waitSec);
+        void useOrb(byte orb_i, bool shouldSelectChar, byte char_i);
+        void getMySupport(byte spter_i);
+        void clickRptAndCombatAgain();
 };
 
 

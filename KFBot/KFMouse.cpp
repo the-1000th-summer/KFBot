@@ -26,13 +26,13 @@ void KFMouse::clickSyutsuGeki() {
 // 此方法点击战斗界面中技能按钮。
 // Args:
 //     i (byte): 左起第i个技能按钮
-void KFMouse::attack(byte i) {
+void KFMouse::attack(byte skill_i) {
     // 注释掉的代码的方法会导致Arduino直接重启，原因未知
     // 以下方法中注释掉的代码同理
     // char sNStr[1];
     // itoa(i, sNStr, 10);
     // write2ndRow("Attack_" + (String)sNStr);
-    switch (i) {
+    switch (skill_i) {
     case 1:
         write2ndRow("Attack_1");
         moveToXYSteps(37, 40);
@@ -68,12 +68,12 @@ void KFMouse::swipeToSupportPage() {
 // 此方法选择一个琪拉拉宝珠技能。
 // Args:
 //     i (byte): 从上往下数第i个技能
-void KFMouse::selectOrb(byte i) {
+void KFMouse::selectOrb(byte orb_i) {
     // char sNStr[1];
     // write2ndRow("select Orb " + (String)itoa(i, sNStr, 10));
     // write2ndRow("select Orb ");
 
-    switch (i) {
+    switch (orb_i) {
     case 1:
         write2ndRow("select Orb 1");
         moveToXYSteps(45, 20);
@@ -92,11 +92,11 @@ void KFMouse::selectOrb(byte i) {
     click();
 }
 
-void KFMouse::selectMySupport(byte i) {
+void KFMouse::selectMySupport(byte spter_i) {
     // char sNStr[1];
     // write2ndRow("Select spter " + (String)itoa(i, sNStr, 10));
 
-    switch (i) {
+    switch (spter_i) {
     case 1:
         write2ndRow("Select spter 1");
         moveToXYSteps(75, 15);
@@ -127,11 +127,11 @@ void KFMouse::selectOK() {
 // 此方法点击使琪拉拉宝珠技能作用于某角色上
 // Args:
 //     i (byte): 从左往右数第i个角色
-void KFMouse::selectOrbChar(byte i) {
+void KFMouse::selectOrbChar(byte orbChar_i) {
     // char sNStr[1];
     // write2ndRow("Select OrbChar " + (String)itoa(i, sNStr, 10));
 
-    switch (i) {
+    switch (orbChar_i) {
     case 1:
         write2ndRow("Select OrbChar 1");
         moveToXYSteps(32, 23);
@@ -150,8 +150,51 @@ void KFMouse::selectOrbChar(byte i) {
     click();
 }
 
+// 此方法点击「もう一度挑戦する」按钮
 void KFMouse::combatAgain() {
     write2ndRow("Combat again!");
     moveToXYSteps(30, 43);
     click();
+}
+
+void KFMouse::attackAndWait(byte skill_i, byte waitSec) {
+    attack(skill_i);
+    delay(waitSec * 1000);
+}
+
+// 此方法执行组合动作：使用オーブ
+// Args:
+//     orbNum (byte): 使用第几个orb
+//     shouldSelectChar (bool): 是否需要选择orb作用的人物
+//     charNum (byte): orb作用的人物（从左往右数第charNum个）
+void KFMouse::useOrb(byte orb_i, bool shouldSelectChar, byte char_i) {
+    swipeToSupportPage();
+    delay(1000);
+    selectOrb(orb_i);
+    delay(500);
+    selectOK();
+    if (shouldSelectChar) {
+        delay(1000);
+        selectOrbChar(char_i);
+    }
+    delay(3000);
+}
+
+void KFMouse::getMySupport(byte spter_i) {
+    swipeToSupportPage();
+    delay(1000);
+    selectMySupport(spter_i);
+    delay(3000);
+}
+
+// 此方法执行组合动作：点击报告然后点击再次战斗按钮
+void KFMouse::clickRptAndCombatAgain() {
+    click();
+    delay(5000);
+    click();
+    delay(1000);
+    click();
+    delay(1000);
+    combatAgain();
+    delay(10000);
 }

@@ -1,6 +1,5 @@
 #include "KFWorkflow.h"
 
-
 // 此类的构造函数，无默认构造函数
 KFWorkflow::KFWorkflow(LiquidCrystal lcddd) : KFMouse(lcddd) {
 }
@@ -15,71 +14,31 @@ void KFWorkflow::getGold() {
     selectOK();
     delay(10000);
     while (true) {
-        attack(1);
-        delay(4000);
-        attack(1);
-        delay(7000);
-        attack(2);
-        delay(4000);
-        attack(3);
-        delay(7000);
-        swipeToSupportPage();
-        delay(1000);
-        selectOrb(3);
-        delay(500);
-        selectOK();
-        delay(1000);
-        selectOrbChar(2);
-        delay(3000);
-        attack(1);
-        delay(3000);
-        attack(2);
-        delay(3000);
-        swipeToSupportPage();
-        delay(1000);
-        selectMySupport(1);
-        delay(3000);
-        attack(1);
-        delay(15000);
-        click();
-        delay(5000);
-        click();
-        delay(1000);
-        click();
-        delay(1000);
-        combatAgain();
-        delay(10000);
+        attackAndWait(1, 4);
+        attackAndWait(1, 7);
+        attackAndWait(2, 4);
+        attackAndWait(3, 7);
+        useOrb(3, true, 2);
+
+        attackAndWait(1, 3);
+        attackAndWait(2, 3);
+        getMySupport(1);
+
+        attackAndWait(1, 15);
+        clickRptAndCombatAgain();
     }
 }
 
+// 此方法用于完成活动任务。
 void KFWorkflow::event() {
     clickSyutsuGeki();
-    selectOK();
     delay(10000);
     while (true) {
-        attack(1);
-        delay(7000);
-        attack(3);
-        delay(7000);
-
-        swipeToSupportPage();
-        delay(1000);
-        selectOrb(3);
-        delay(500);
-        selectOK();
-        delay(1000);
-        selectOrbChar(2);
-        delay(3000);
-        attack(1);
-        delay(15000);
-        click();
-        delay(5000);
-        click();
-        delay(1000);
-        click();
-        delay(1000);
-        combatAgain();
-        delay(10000);
+        attackAndWait(1, 7);
+        attackAndWait(3, 7);
+        useOrb(3, true, 2);
+        attackAndWait(1, 15);
+        clickRptAndCombatAgain();
     }
 }
 

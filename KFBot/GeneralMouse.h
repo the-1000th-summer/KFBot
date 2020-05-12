@@ -6,7 +6,7 @@
 
 class GeneralMouse {
     private:
-        SoftwareSerial bTserial = SoftwareSerial(8, 9);
+        SoftwareSerial bTserial = SoftwareSerial(8, 9);     // RX, TX
         bool isPressing = false;
         byte nowXc = 0;
         byte nowYc = 0;

@@ -14,7 +14,7 @@ CtrlLCD::~CtrlLCD() {
 
 // 此方法用于开机测试
 void CtrlLCD::bootTest() {
-    byte smiley[8] = {    //1表示亮，0表示不亮，此例显示一个笑脸
+    byte smiley[8] = {    // 1表示亮，0表示不亮，此例显示一个笑脸
         B00000,
         B10001,
         B00000,
@@ -25,7 +25,7 @@ void CtrlLCD::bootTest() {
     };
     
     int x = 0;
-    lcd.createChar(x, smiley);
+    lcd.createChar(x, smiley);            // 创建自定义字符
 
     for (byte row = 0; row < 2; row++) {
         lcd.setCursor(0,row);
@@ -44,7 +44,7 @@ void CtrlLCD::bootTest() {
 void CtrlLCD::controlWorkflow() {
     KFWorkflow myWorkflow = KFWorkflow(lcd);
 
-    String strs[2] = {"getGold", "bar"};
+    String strs[2] = {"getGold", "event"};
 
     byte hlNum = 0;
     char sNStr[1];      // serial number
