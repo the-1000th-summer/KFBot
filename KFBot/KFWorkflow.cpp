@@ -34,10 +34,12 @@ void KFWorkflow::event() {
     clickSyutsuGeki();
     delay(10000);
     while (true) {
-        attackAndWait(1, 7);
+        attackAndWait(4, 6);
+        attackAndWait(1, 4);
         attackAndWait(3, 7);
+        attackAndWait(1, 7);
         useOrb(3, true, 2);
-        attackAndWait(1, 15);
+        attackAndWait(1, 12);
         clickRptAndCombatAgain();
     }
 }

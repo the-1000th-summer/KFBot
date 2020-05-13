@@ -14,6 +14,8 @@ public:
     ~CtrlLCD();
     void bootTest();
     void controlWorkflow();
+
+    void rewrite2ndRow(String rowStr);
 };
 
 

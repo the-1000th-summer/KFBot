@@ -19,3 +19,10 @@ iPhone 6s (iOS 13.4)
 蓝牙HID模块：见我制作的[视频](https://www.bilibili.com/video/BV1de411s7tc)；
 
 LCD1602模块：[http://m.elecfans.com/article/687697.html](http://m.elecfans.com/article/687697.html)
+
+## 代码使用方法
+
+1. 根据蓝牙模块连接情况，修改`GeneralMouse.h`文件中的第一个私有属性bTserial的代表RX和TX的引脚号；
+2. 根据LCD模块连接情况，修改`CtrlLCD.h`文件中的私有属性lcd的引脚号；
+3. 根据自身情况，在`KFWorkflow.cpp`文件内建立不同的鼠标工作流；
+4. 编译上传。
