@@ -18,6 +18,7 @@ class KFMouse: public GeneralMouse {
         void write2ndRow(String rowStr);
         void clickSyutsuGeki();    // 出撃
         void attack(byte skill_i);
+        void tapSkill(byte skill_i);
         void swipeToSupportPage();
         void selectOrb(byte orb_i);
         void selectMySupport(byte spter_i);
@@ -25,6 +26,9 @@ class KFMouse: public GeneralMouse {
         void selectOK();
         void selectOrbChar(byte orbChar_i);
         void combatAgain();
+        void selectEnemy(byte enemy_i);
+        void selectAlly(byte ally_i);
+        void selectTotteOki(byte char_i);
 
         void attackAndWait(byte skill_i, byte waitSec);
         void useOrb(byte orb_i, bool shouldSelectChar, byte char_i);

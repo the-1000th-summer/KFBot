@@ -13,6 +13,7 @@ public:
     
     void getGold();
     void event();
+    void event2();
 };
 
 

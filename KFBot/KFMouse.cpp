@@ -55,6 +55,27 @@ void KFMouse::attack(byte skill_i) {
     doubleClick();
 }
 
+// 此方法只选中技能按钮但不释放技能，在补血等情况使用此方法
+void KFMouse::tapSkill(byte skill_i) {
+    switch (skill_i) {
+    case 1:
+        moveToXYSteps(37, 40);
+        break;
+    case 2:
+        moveToXYSteps(46, 40);
+        break;
+    case 3:
+        moveToXYSteps(54, 40);
+        break;
+    case 4:
+        moveToXYSteps(63, 40);
+        break;
+    default:
+        return;
+    }
+    click();
+}
+
 // 此方法执行右滑并进入琪拉拉宝珠使用页面
 void KFMouse::swipeToSupportPage() {
     write2ndRow("Swipe to SptPage");
@@ -157,6 +178,55 @@ void KFMouse::combatAgain() {
     click();
 }
 
+// 此方法选中某个敌人使其成为攻击对象
+void KFMouse::selectEnemy(byte enemy_i) {
+    switch (enemy_i) {
+    case 1:
+        moveToXYSteps(7, 23);
+        break;
+    case 2:
+        moveToXYSteps(20, 23);
+        break;
+    case 3:
+        moveToXYSteps(30, 23);
+        break;
+    default:
+        break;
+    }
+    click();
+}
+
+// 此方法选中某个同伴
+void KFMouse::selectAlly(byte ally_i) {
+    switch (ally_i) {
+    case 1:
+        moveToXYSteps(54, 20);
+        break;
+    case 2:
+        moveToXYSteps(65, 20);
+        break;
+    case 3:
+        moveToXYSteps(77, 20);
+        break;
+    default:
+        break;
+    }
+    click();
+}
+
+void KFMouse::selectTotteOki(byte char_i) {
+    moveToXYSteps(27, 40);
+    click();
+    moveToXYSteps(70, 8);
+    click();
+    moveToXYSteps(70, 42);
+    click();
+    delay(5000);
+    click();
+    delay(4000);
+}
+
+// 此方法执行组合动作：攻击并等待一定的时间（单位：秒）
 void KFMouse::attackAndWait(byte skill_i, byte waitSec) {
     attack(skill_i);
     delay(waitSec * 1000);

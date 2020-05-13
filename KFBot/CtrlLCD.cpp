@@ -44,7 +44,7 @@ void CtrlLCD::bootTest() {
 void CtrlLCD::controlWorkflow() {
     KFWorkflow myWorkflow = KFWorkflow(lcd);
 
-    String strs[] = {"getGold", "event", "event2", "hahahah0", "sshhi", "sdfdsfs", "saosjof"};
+    String strs[] = {"getGold", "event", "event2"};
     int wfSize = sizeof(strs) / sizeof(strs[0]);    // strs数组的长度
 
     byte hlNum = 0;     // 目前光标所处的工作流序号 - 1
@@ -76,12 +76,9 @@ void CtrlLCD::controlWorkflow() {
                 lcd.setCursor(0, 1);
                 lcd.write(itoa(hlNum+2, sNStr, 10));
                 lcd.print(" " + strs[hlNum + 1]);
-            } else {
-
             }
             cursorAt1stLine = true;
             lcd.setCursor(0, 0);
-            
 
             // 如果此按钮被长按，每半秒选到下一个工作流，
             // 使用变量threshold和一个较短时间的延迟（10ms）保证
@@ -107,7 +104,6 @@ void CtrlLCD::controlWorkflow() {
                 }
             }
 
-
         }
 
         // 如果第二个按钮被按下，光标移动到下一个工作流的序号上
@@ -122,9 +118,8 @@ void CtrlLCD::controlWorkflow() {
                 lcd.setCursor(0, 1);
                 lcd.write(itoa(hlNum+1, sNStr, 10));
                 lcd.print(" " + strs[hlNum]);
-            } else {
-
             }
+
             cursorAt1stLine = false;
             lcd.setCursor(0, 1);
 
@@ -163,6 +158,7 @@ void CtrlLCD::controlWorkflow() {
 
             while (true) {
                 // 如果再次按下确认按钮，则开始执行相应的工作流
+                bool breakOutLoop = false;
                 if (digitalRead(A2) == LOW) {
                     while (digitalRead(A2) == LOW) {}     // 处理掉长按，松手才继续执行
                     lcd.setCursor(5, 1);
@@ -174,10 +170,15 @@ void CtrlLCD::controlWorkflow() {
                     case 1:
                         myWorkflow.event();
                         break;
+                    case 2:
+                        myWorkflow.event2();
+                        break;
                     default:
+                        breakOutLoop = true;
                         break;
                     }
                 }
+                if (breakOutLoop) break;
             }
         }
         // Serial.println(digitalRead(A0));
@@ -186,9 +187,57 @@ void CtrlLCD::controlWorkflow() {
     
 }
 
-void CtrlLCD::rewrite2ndRow(String rowStr) {
-    lcd.setCursor(0, 1);
-    lcd.print(String(16, '\x20'));
-    lcd.setCursor(0, 1);
-    lcd.print(rowStr);
+// 此方法用于使用电脑键盘发送串行信息用于调试代码
+void CtrlLCD::debugUsingKeyboard() {
+
+    KFWorkflow myWorkflow = KFWorkflow(lcd);
+
+    while (true) {
+        if (Serial.available() > 0) {
+            while (Serial.available() > 0) {
+                Serial.println("available!");
+                char serialData = Serial.read();
+                switch (serialData) {
+                case 'w':
+                    Serial.println("w!");
+                    myWorkflow.moveByXYSteps(0, -10);
+                    break;
+                case 's':
+                    Serial.println("s!");
+                    myWorkflow.moveByXYSteps(0, 10);
+                    break;
+                case 'a':
+                    Serial.println("a!");
+                    myWorkflow.moveByXYSteps(-10, 0);
+                    break;
+                case 'd':
+                    Serial.println("d!");
+                    myWorkflow.moveByXYSteps(10, 0);
+                    break;
+                case 'o':
+                    Serial.println("return to origin!");
+                    myWorkflow.returnToO();
+                    break;
+                case 't':
+                    myWorkflow.selectAlly(1);
+                    break;
+                case 'y':
+                    myWorkflow.selectAlly(2);
+                    break;
+                case 'u':
+                    myWorkflow.selectAlly(3);
+                    break;
+                case 'i':
+                    myWorkflow.event2();
+                    break;
+                
+                default:
+                    break;
+                }
+            }
+            Serial.println("End serial input.");
+        }
+    }
+    
+    
 }

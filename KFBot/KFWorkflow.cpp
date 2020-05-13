@@ -44,3 +44,35 @@ void KFWorkflow::event() {
     }
 }
 
+void KFWorkflow::event2() {
+    clickSyutsuGeki();
+    selectOK();
+    delay(10000);
+    while (true) {
+        selectEnemy(2);
+        attackAndWait(1, 4);
+        selectEnemy(3);
+        attackAndWait(4, 6);
+        attackAndWait(1, 6);
+        selectEnemy(1);
+        attackAndWait(4, 6);
+        attackAndWait(2, 4);
+        attackAndWait(4, 4);
+        attackAndWait(2, 6);
+        attackAndWait(4, 4);
+        attackAndWait(3, 6);
+        tapSkill(1);
+        selectAlly(3);
+        attackAndWait(1, 4);
+        attackAndWait(3, 8);
+        selectTotteOki(1);
+        attackAndWait(4, 5);
+        useOrb(3, true, 1);
+        attackAndWait(1, 6);
+        attackAndWait(2, 4);
+        selectTotteOki(1);
+        delay(12000);
+        clickRptAndCombatAgain();
+    }
+}
+

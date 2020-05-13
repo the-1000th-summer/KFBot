@@ -8,14 +8,14 @@
 class CtrlLCD {
 private:
     /* data */
-    LiquidCrystal lcd = LiquidCrystal(7,6,5,4,3,2);
+    // LiquidCrystal lcd = LiquidCrystal(7,6,5,4,3,2);
 public:
+    LiquidCrystal lcd = LiquidCrystal(7,6,5,4,3,2);
     CtrlLCD();
     ~CtrlLCD();
     void bootTest();
     void controlWorkflow();
-
-    void rewrite2ndRow(String rowStr);
+    void debugUsingKeyboard();
 };
 
 
