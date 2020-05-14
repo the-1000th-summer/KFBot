@@ -22,7 +22,16 @@ LCD1602模块：[http://m.elecfans.com/article/687697.html](http://m.elecfans.co
 
 ## 代码使用方法
 
+### 基本使用方法
+
 1. 根据蓝牙模块连接情况，修改`GeneralMouse.h`文件中的第一个私有属性bTserial的代表RX和TX的引脚号；
 2. 根据LCD模块连接情况，修改`CtrlLCD.h`文件中的私有属性lcd的引脚号；
-3. 根据自身情况，在`KFWorkflow.cpp`文件内建立不同的鼠标工作流；
-4. 编译上传。
+3. 根据设备情况，调整硬编码在`KFMouse.cpp`文件中的数值以使光标能移动到正确的位置（见[下一小节](#自行增加类方法 / 调整光标移动位置)）；
+4. 根据自身情况，在`KFWorkflow.cpp`文件内建立不同的鼠标工作流；
+5. 编译上传。
+
+### 自行增加类方法 / 调整光标移动位置
+
+1. 将主程序文件`KFBot.ino`中`loop()`函数中的myLCD执行的方法换成`debugUsingKeyboard()`；
+2. 编译上传，此时可以使用键盘通过串口监视器发送数据（基本为wasd四个按键）；
+3. 自行修改方法`debugUsingKeyboard()`为方便调试。

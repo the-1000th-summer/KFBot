@@ -44,6 +44,7 @@ void KFWorkflow::event() {
     }
 }
 
+// 此方法用于完成活动极强敌任务
 void KFWorkflow::event2() {
     clickSyutsuGeki();
     selectOK();

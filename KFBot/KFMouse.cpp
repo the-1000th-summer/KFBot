@@ -8,6 +8,10 @@ KFMouse::KFMouse(LiquidCrystal lcddd) : lcdd(lcddd) {
 KFMouse::~KFMouse() {}
 
 // 此方法清空液晶屏第二行并写入新字符串
+// Args:
+//     rowStr (String): 要写入的字符串
+// Notes:
+// 此方法暂时无用
 void KFMouse::write2ndRow(String rowStr) {
     lcdd.setCursor(0, 1);
     for (byte i = 0; i < 16; i++) lcdd.write('\x20');
@@ -25,7 +29,7 @@ void KFMouse::clickSyutsuGeki() {
 
 // 此方法点击战斗界面中技能按钮。
 // Args:
-//     i (byte): 左起第i个技能按钮
+//     skill_i (byte): 左起第skill_i个技能按钮
 void KFMouse::attack(byte skill_i) {
     // 注释掉的代码的方法会导致Arduino直接重启，原因未知
     // 以下方法中注释掉的代码同理
@@ -56,6 +60,8 @@ void KFMouse::attack(byte skill_i) {
 }
 
 // 此方法只选中技能按钮但不释放技能，在补血等情况使用此方法
+// Args:
+//    skill_i (byte): 左起第skill_i个技能按钮
 void KFMouse::tapSkill(byte skill_i) {
     switch (skill_i) {
     case 1:
@@ -113,6 +119,9 @@ void KFMouse::selectOrb(byte orb_i) {
     click();
 }
 
+// 此方法点击琪拉拉宝珠界面指定的的supporter。
+// Args:
+//    spter_i (byte): 从上往下数第spter_i个supporter
 void KFMouse::selectMySupport(byte spter_i) {
     // char sNStr[1];
     // write2ndRow("Select spter " + (String)itoa(i, sNStr, 10));
@@ -147,7 +156,7 @@ void KFMouse::selectOK() {
 
 // 此方法点击使琪拉拉宝珠技能作用于某角色上
 // Args:
-//     i (byte): 从左往右数第i个角色
+//     orbChar_i (byte): 从左往右数第orbChar_i个角色
 void KFMouse::selectOrbChar(byte orbChar_i) {
     // char sNStr[1];
     // write2ndRow("Select OrbChar " + (String)itoa(i, sNStr, 10));
@@ -179,6 +188,8 @@ void KFMouse::combatAgain() {
 }
 
 // 此方法选中某个敌人使其成为攻击对象
+// Args:
+//     enemy_i (byte): 左起第enemy_i个敌人
 void KFMouse::selectEnemy(byte enemy_i) {
     switch (enemy_i) {
     case 1:
@@ -197,6 +208,8 @@ void KFMouse::selectEnemy(byte enemy_i) {
 }
 
 // 此方法选中某个同伴
+// Args:
+//     ally_i (byte): 左起第ally_i个人物
 void KFMouse::selectAlly(byte ally_i) {
     switch (ally_i) {
     case 1:
@@ -214,6 +227,9 @@ void KFMouse::selectAlly(byte ally_i) {
     click();
 }
 
+// 此方法执行とっておき技能
+// Args:
+//     char_i (byte): 从上往下数第char_i个人物
 void KFMouse::selectTotteOki(byte char_i) {
     moveToXYSteps(27, 40);
     click();
@@ -227,6 +243,9 @@ void KFMouse::selectTotteOki(byte char_i) {
 }
 
 // 此方法执行组合动作：攻击并等待一定的时间（单位：秒）
+// Args:
+//     skill_i (byte): 左起第skill_i个技能按钮
+//     waitSec (byte): 等待的秒数
 void KFMouse::attackAndWait(byte skill_i, byte waitSec) {
     attack(skill_i);
     delay(waitSec * 1000);
@@ -250,6 +269,9 @@ void KFMouse::useOrb(byte orb_i, bool shouldSelectChar, byte char_i) {
     delay(3000);
 }
 
+// 此方法执行组合动作：替换场上选中的任务为指定的supporter
+// Args:
+//    spter_i (byte): 从上往下数第spter_i个supporter
 void KFMouse::getMySupport(byte spter_i) {
     swipeToSupportPage();
     delay(1000);
