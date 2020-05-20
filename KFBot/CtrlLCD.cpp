@@ -2,8 +2,10 @@
 
 // 此类的构造函数
 CtrlLCD::CtrlLCD() {
-    lcd.begin(16, 2);
+    lcd.begin(16, 2);      // 每行16个字符，共2行
     pinMode(A0, INPUT);
+    pinMode(A1, INPUT);
+    pinMode(A2, INPUT);
     Serial.println("lcd created.");
 }
 
@@ -48,8 +50,7 @@ void CtrlLCD::controlWorkflow() {
     int wfSize = sizeof(strs) / sizeof(strs[0]);    // strs数组的长度
 
     byte hlNum = 0;     // 目前光标所处的工作流序号 - 1
-    bool cursorAt1stLine = true;
-    byte cursorShouldAtLine = 0;
+    bool cursorAt1stLine = true;        // 目前光标是否在液晶屏的第一行
     char sNStr[1];      // serial number
 
     // 显示前两个workflow的序号和名称

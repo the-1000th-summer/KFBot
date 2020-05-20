@@ -14,17 +14,18 @@ void KFWorkflow::getGold() {
     selectOK();
     delay(10000);
     while (true) {
-        attackAndWait(1, 4);
-        attackAndWait(1, 7);
         attackAndWait(2, 4);
-        attackAndWait(3, 7);
-        useOrb(3, true, 2);
+        attackAndWait(2, 4);
+        attackAndWait(2, 6);
 
-        attackAndWait(1, 3);
-        attackAndWait(2, 3);
-        getMySupport(1);
+        attackAndWait(3, 4);
+        attackAndWait(4, 4);
+        attackAndWait(3, 6);
 
-        attackAndWait(1, 15);
+        attackAndWait(1, 4);
+        selectTotteOki(1);
+        
+        delay(12000);
         clickRptAndCombatAgain();
     }
 }
@@ -34,12 +35,23 @@ void KFWorkflow::event() {
     clickSyutsuGeki();
     delay(10000);
     while (true) {
-        attackAndWait(4, 6);
+        delay(3000);
+        attackAndWait(1, 6);
         attackAndWait(1, 4);
-        attackAndWait(3, 7);
         attackAndWait(1, 7);
+
+        attackAndWait(2, 4);
+        attackAndWait(2, 4);
+        attackAndWait(2, 10);
+        attackAndWait(3, 4);
+        attackAndWait(3, 4);
+        attackAndWait(3, 6);
+
         useOrb(3, true, 2);
-        attackAndWait(1, 12);
+        attackAndWait(1, 4);
+        attackAndWait(4, 4);
+        selectTotteOki(1);
+        delay(12000);
         clickRptAndCombatAgain();
     }
 }

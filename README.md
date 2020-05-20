@@ -20,6 +20,13 @@ iPhone 6s (iOS 13.4)
 
 LCD1602模块：[http://m.elecfans.com/article/687697.html](http://m.elecfans.com/article/687697.html)
 
+### 连接参考：
+
+1. 图中的蓝牙模块实际为普通的蓝牙模块，没有HID的功能，但与HID蓝牙模块外观完全相同。由于在fritzing中找不到HID模块，用此普通模块代替；
+2. LCD1602模块的引脚3和引脚15分别为控制显示亮度和背光的引脚，可以分别接电位器以方便随时调节。此处接的电阻使显示亮度不太亮，且背光处于最合适的状态。
+
+![KFBot_bb](KFBot_bb.png)
+
 ## 代码使用方法
 
 ### 基本使用方法

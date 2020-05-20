@@ -10,7 +10,7 @@ private:
     /* data */
     // LiquidCrystal lcd = LiquidCrystal(7,6,5,4,3,2);
 public:
-    LiquidCrystal lcd = LiquidCrystal(7,6,5,4,3,2);
+    LiquidCrystal lcd = LiquidCrystal(9,8,7,6,5,4);
     CtrlLCD();
     ~CtrlLCD();
     void bootTest();
