@@ -1,8 +1,5 @@
 #include "CtrlLCD.h"
 
-CtrlLCD *CtrlLCD::instance;           // 必须有此定义！仅有头文件中的声明会报错: 
-                                      // undefined reference to `CtrlLCD::instance'
-
 // 此类的构造函数
 CtrlLCD::CtrlLCD() {
     lcd.begin(16, 2);      // 每行16个字符，共2行
@@ -10,10 +7,6 @@ CtrlLCD::CtrlLCD() {
     pinMode(A1, INPUT);
     pinMode(A2, INPUT);
     Serial.println("lcd created.");
-
-    instance = this;
-    attachInterrupt(1, enterISR, FALLING);          // int.1，代表引脚3
-
 }
 
 // 此类的析构函数
@@ -49,34 +42,8 @@ void CtrlLCD::bootTest() {
     delay(500);
 }
 
-// 此静态方法为中断方法
-void CtrlLCD::enterISR() {
-    Serial.println("Interrupt");
-    instance->lcd.clear();
-    instance->lcd.print("pause!");
-
-    while (digitalRead(3) == LOW) {}  // 处理掉长按，松手才继续执行，防止同时按下退出中断按钮
-    // 不可用中断的引脚按钮跳出循环继续代码
-    // 若这么做，按下这个第二次按钮后无任何反应，
-    // 按下第三次按钮后会退出中断，但紧接着进入第二次中断
-    // 按下第四次按钮后退出第二次中断，紧接着进入第三次中断，以此类推
-    while (true) {
-        if (digitalRead(A2) == LOW) {
-            Serial.println("enter!");
-            while (digitalRead(A2) == LOW) {}   // 处理掉长按，松手才继续执行，退出中断
-            Serial.println("release");
-            instance->lcd.clear();
-            instance->lcd.print("Continue!");
-            break;
-        }
-    }
-    Serial.println("Continue");
-}
-
 // 此方法用于读取按钮的输入以控制进行哪个workflow
 void CtrlLCD::controlWorkflow() {
-
-    // KFWorkflow myWorkflow = KFWorkflow(lcd);
 
     String strs[] = {"getGold", "event", "event2"};
     int wfSize = sizeof(strs) / sizeof(strs[0]);    // strs数组的长度
@@ -214,16 +181,12 @@ void CtrlLCD::controlWorkflow() {
                 if (breakOutLoop) break;
             }
         }
-        // Serial.println(digitalRead(A0));
-        
     }
     
 }
 
 // 此方法用于使用电脑键盘发送串行信息用于调试代码
 void CtrlLCD::debugUsingKeyboard() {
-
-    // KFWorkflow myWorkflow = KFWorkflow(lcd);
 
     while (true) {
         if (Serial.available() > 0) {

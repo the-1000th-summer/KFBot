@@ -8,12 +8,13 @@
 
 class KFMouse: public GeneralMouse {
     private:
-        
+        static KFMouse *instance;
     public:
         LiquidCrystal lcdd;
 
         KFMouse(LiquidCrystal lcddd);
         ~KFMouse();
+        static void enterISR();
 
         void write2ndRow(String rowStr);
         void clickSyutsuGeki();    // 出撃
@@ -35,7 +36,5 @@ class KFMouse: public GeneralMouse {
         void getMySupport(byte spter_i);
         void clickRptAndCombatAgain();
 };
-
-
 
 #endif

@@ -16,7 +16,7 @@ void KFWorkflow::getGold() {
     while (true) {
         attackAndWait(1, 4);
         attackAndWait(1, 6);
-
+        
         useOrb(3, true, 3);
         attackAndWait(1, 4);
         getMySupport(1);

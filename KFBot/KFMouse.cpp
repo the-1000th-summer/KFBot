@@ -1,22 +1,50 @@
 #include "KFMouse.h"
 
+KFMouse *KFMouse::instance;           // 必须有此定义！仅有头文件中的声明会报错: 
+                                      // undefined reference to `CtrlLCD::instance'
+
 // 此类的构造函数，无默认构造函数
 KFMouse::KFMouse(LiquidCrystal lcddd) : lcdd(lcddd) {
+    lcdd.begin(16, 2);                            // 必须有这个初始化！否则lcd屏幕无法把光标设置到第二行
+    instance = this;
+    attachInterrupt(1, enterISR, FALLING);          // int.1，代表引脚3
 }
 
 // 此类的析构函数
 KFMouse::~KFMouse() {}
 
+// 此静态方法为中断方法
+void KFMouse::enterISR() {
+    Serial.println("Interrupt");
+    instance->write2ndRow("Pause!");
+
+    while (digitalRead(3) == LOW) {}  // 处理掉长按，松手才继续执行，防止同时按下退出中断按钮
+    // 不可用中断的引脚按钮跳出循环继续代码
+    // 若这么做，按下这个第二次按钮后无任何反应，
+    // 按下第三次按钮后会退出中断，但紧接着进入第二次中断
+    // 按下第四次按钮后退出第二次中断，紧接着进入第三次中断，以此类推
+    while (true) {
+        if (digitalRead(A2) == LOW) {
+            Serial.println("enter!");
+            while (digitalRead(A2) == LOW) {}   // 处理掉长按，松手才继续执行，退出中断
+            Serial.println("release");
+
+            instance->returnToO();
+            instance->write2ndRow("Continue!");
+            break;
+        }
+    }
+    Serial.println("Continue");
+}
+
 // 此方法清空液晶屏第二行并写入新字符串
 // Args:
 //     rowStr (String): 要写入的字符串
-// Notes:
-// 此方法暂时无用
 void KFMouse::write2ndRow(String rowStr) {
+    
     lcdd.setCursor(0, 1);
     for (byte i = 0; i < 16; i++) lcdd.write('\x20');
     lcdd.setCursor(0, 1);
-    // lcdd.clear();
     lcdd.print(rowStr);
 }
 
