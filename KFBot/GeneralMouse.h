@@ -15,6 +15,7 @@ class GeneralMouse {
     public:
         GeneralMouse();
         ~GeneralMouse();
+
         void moveByXYSteps(int x, int y);
         void moveToXYSteps(int x, int y);
         void click();
@@ -22,6 +23,8 @@ class GeneralMouse {
         void press();
         void release();
         void returnToO();
+        void wait(byte waitSec);
+
 
 };
 

@@ -12,20 +12,22 @@ KFWorkflow::~KFWorkflow() {
 void KFWorkflow::getGold() {
     clickSyutsuGeki();
     selectOK();
-    delay(10000);
+    wait(10);
     while (true) {
-        attackAndWait(2, 4);
-        attackAndWait(2, 4);
-        attackAndWait(2, 6);
+        attackAndWait(1, 4);
+        attackAndWait(1, 6);
+
+        useOrb(3, true, 3);
+        attackAndWait(1, 4);
+        getMySupport(1);
+        attackAndWait(1, 4);
+        attackAndWait(1, 6);
 
         attackAndWait(3, 4);
-        attackAndWait(4, 4);
-        attackAndWait(3, 6);
-
-        attackAndWait(1, 4);
+        attackAndWait(2, 4);
         selectTotteOki(1);
-        
-        delay(12000);
+
+        wait(12);
         clickRptAndCombatAgain();
     }
 }
@@ -33,25 +35,25 @@ void KFWorkflow::getGold() {
 // 此方法用于完成活动任务。
 void KFWorkflow::event() {
     clickSyutsuGeki();
-    delay(10000);
+    wait(10);
     while (true) {
-        delay(3000);
-        attackAndWait(1, 6);
+        wait(3);
         attackAndWait(1, 4);
+        attackAndWait(1, 8);
         attackAndWait(1, 7);
 
         attackAndWait(2, 4);
-        attackAndWait(2, 4);
+        attackAndWait(2, 5);
         attackAndWait(2, 10);
         attackAndWait(3, 4);
         attackAndWait(3, 4);
-        attackAndWait(3, 6);
+        attackAndWait(3, 7);
 
         useOrb(3, true, 2);
         attackAndWait(1, 4);
         attackAndWait(4, 4);
         selectTotteOki(1);
-        delay(12000);
+        wait(12);
         clickRptAndCombatAgain();
     }
 }
@@ -60,7 +62,7 @@ void KFWorkflow::event() {
 void KFWorkflow::event2() {
     clickSyutsuGeki();
     selectOK();
-    delay(10000);
+    wait(10);
     while (true) {
         selectEnemy(2);
         attackAndWait(1, 4);
@@ -84,7 +86,7 @@ void KFWorkflow::event2() {
         attackAndWait(1, 6);
         attackAndWait(2, 4);
         selectTotteOki(1);
-        delay(12000);
+        wait(12);
         clickRptAndCombatAgain();
     }
 }

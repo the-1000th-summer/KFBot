@@ -7,17 +7,16 @@
 
 class CtrlLCD {
 private:
-    /* data */
-    // LiquidCrystal lcd = LiquidCrystal(7,6,5,4,3,2);
+    static CtrlLCD *instance;
 public:
     LiquidCrystal lcd = LiquidCrystal(9,8,7,6,5,4);
+    KFWorkflow myWorkflow = KFWorkflow(lcd);
     CtrlLCD();
     ~CtrlLCD();
+    static void enterISR();
     void bootTest();
     void controlWorkflow();
     void debugUsingKeyboard();
 };
-
-
 
 #endif

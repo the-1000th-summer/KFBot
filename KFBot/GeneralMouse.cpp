@@ -84,6 +84,11 @@ void GeneralMouse::returnToO() {
     nowXc = nowYc = 0;
 }
 
+// 此方法等待指定的秒数
+void GeneralMouse::wait(byte waitSec) {
+    delay(waitSec * 1000);
+}
+
 // 此方法执行一般的鼠标操作。
 void GeneralMouse::generalAction(byte x, byte y, bool pressing) {
     byte byte5 = pressing ? 0x01 : (byte)0x00;

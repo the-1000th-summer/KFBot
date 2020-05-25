@@ -237,9 +237,9 @@ void KFMouse::selectTotteOki(byte char_i) {
     click();
     moveToXYSteps(70, 42);
     click();
-    delay(5000);
+    wait(5);
     click();
-    delay(4000);
+    wait(4);
 }
 
 // 此方法执行组合动作：攻击并等待一定的时间（单位：秒）
@@ -258,15 +258,15 @@ void KFMouse::attackAndWait(byte skill_i, byte waitSec) {
 //     charNum (byte): orb作用的人物（从左往右数第charNum个）
 void KFMouse::useOrb(byte orb_i, bool shouldSelectChar, byte char_i) {
     swipeToSupportPage();
-    delay(1000);
+    wait(1);
     selectOrb(orb_i);
     delay(500);
     selectOK();
     if (shouldSelectChar) {
-        delay(1000);
+        wait(1);
         selectOrbChar(char_i);
     }
-    delay(3000);
+    wait(3);
 }
 
 // 此方法执行组合动作：替换场上选中的任务为指定的supporter
@@ -274,19 +274,19 @@ void KFMouse::useOrb(byte orb_i, bool shouldSelectChar, byte char_i) {
 //    spter_i (byte): 从上往下数第spter_i个supporter
 void KFMouse::getMySupport(byte spter_i) {
     swipeToSupportPage();
-    delay(1000);
+    wait(1);
     selectMySupport(spter_i);
-    delay(3000);
+    wait(3);
 }
 
 // 此方法执行组合动作：点击报告然后点击再次战斗按钮
 void KFMouse::clickRptAndCombatAgain() {
     click();
-    delay(5000);
+    wait(5);
     click();
-    delay(1000);
+    wait(1);
     click();
-    delay(1000);
+    wait(1);
     combatAgain();
-    delay(10000);
+    wait(10);
 }
