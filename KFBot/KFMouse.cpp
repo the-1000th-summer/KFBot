@@ -117,6 +117,7 @@ void KFMouse::swipeToSupportPage() {
     moveToXYSteps(74, 40);
     press();
     moveToXYSteps(82, 40);
+    wait(1);
     release();
 }
 
@@ -124,9 +125,6 @@ void KFMouse::swipeToSupportPage() {
 // Args:
 //     i (byte): 从上往下数第i个技能
 void KFMouse::selectOrb(byte orb_i) {
-    // char sNStr[1];
-    // write2ndRow("select Orb " + (String)itoa(i, sNStr, 10));
-    // write2ndRow("select Orb ");
 
     switch (orb_i) {
     case 1:
@@ -270,6 +268,14 @@ void KFMouse::selectTotteOki(byte char_i) {
     wait(4);
 }
 
+// 此方法将光标移动到没有按钮的位置，用于打赢后点击报告
+void KFMouse::moveToNoBtnPlace() {
+    moveToXYSteps(45, 35);
+    wait(1);
+}
+
+
+
 // 此方法执行组合动作：攻击并等待一定的时间（单位：秒）
 // Args:
 //     skill_i (byte): 左起第skill_i个技能按钮
@@ -286,7 +292,6 @@ void KFMouse::attackAndWait(byte skill_i, byte waitSec) {
 //     charNum (byte): orb作用的人物（从左往右数第charNum个）
 void KFMouse::useOrb(byte orb_i, bool shouldSelectChar, byte char_i) {
     swipeToSupportPage();
-    wait(1);
     selectOrb(orb_i);
     delay(500);
     selectOK();
@@ -309,6 +314,7 @@ void KFMouse::getMySupport(byte spter_i) {
 
 // 此方法执行组合动作：点击报告然后点击再次战斗按钮
 void KFMouse::clickRptAndCombatAgain() {
+    moveToNoBtnPlace();
     click();
     wait(5);
     click();
@@ -316,5 +322,5 @@ void KFMouse::clickRptAndCombatAgain() {
     click();
     wait(1);
     combatAgain();
-    wait(10);
+    wait(11);
 }

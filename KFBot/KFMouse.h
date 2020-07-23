@@ -30,6 +30,7 @@ class KFMouse: public GeneralMouse {
         void selectEnemy(byte enemy_i);
         void selectAlly(byte ally_i);
         void selectTotteOki(byte char_i);
+        void moveToNoBtnPlace();
 
         void attackAndWait(byte skill_i, byte waitSec);
         void useOrb(byte orb_i, bool shouldSelectChar, byte char_i);

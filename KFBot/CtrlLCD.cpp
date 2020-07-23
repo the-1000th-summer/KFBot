@@ -45,7 +45,7 @@ void CtrlLCD::bootTest() {
 // 此方法用于读取按钮的输入以控制进行哪个workflow
 void CtrlLCD::controlWorkflow() {
 
-    String strs[] = {"getGold", "event", "event2"};
+    String strs[] = {"getGold", "event", "event2", "mainQuest"};
     int wfSize = sizeof(strs) / sizeof(strs[0]);    // strs数组的长度
 
     byte hlNum = 0;     // 目前光标所处的工作流序号 - 1
@@ -173,6 +173,8 @@ void CtrlLCD::controlWorkflow() {
                     case 2:
                         myWorkflow.event2();
                         break;
+                    case 3:
+                        myWorkflow.mainQuest();
                     default:
                         breakOutLoop = true;
                         break;
@@ -191,7 +193,7 @@ void CtrlLCD::debugUsingKeyboard() {
     while (true) {
         if (Serial.available() > 0) {
             while (Serial.available() > 0) {
-                Serial.println("available!");
+                Serial.print("serial port has data: ");
                 char serialData = Serial.read();
                 switch (serialData) {
                 case 'w':
@@ -213,18 +215,6 @@ void CtrlLCD::debugUsingKeyboard() {
                 case 'o':
                     Serial.println("return to origin!");
                     myWorkflow.returnToO();
-                    break;
-                case 't':
-                    myWorkflow.selectAlly(1);
-                    break;
-                case 'y':
-                    myWorkflow.selectAlly(2);
-                    break;
-                case 'u':
-                    myWorkflow.selectAlly(3);
-                    break;
-                case 'i':
-                    myWorkflow.event2();
                     break;
                 
                 default:
